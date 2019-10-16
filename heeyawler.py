@@ -35,10 +35,12 @@ def crawl(url):
 
     if resp.status_code == 200:
         soup = BeautifulSoup(resp.text, 'html.parser')
+        # make messy html pretty
         links = get_links(soup)
 
         with open(get_filename(url), 'wb') as fout:
             fout.write(resp.text.encode('euc-kr'))
+            ## No more broken Korean...
 
         for link in links:
             href = link.get('href')
@@ -57,5 +59,6 @@ if __name__=='__main__':
     while queue:
         url = queue.pop()
         crawl(url)
-        time.sleep(1) # take a pause for just one second
-        # crawl(href)
+        time.sleep(1)
+        # take a pause for just one second
+        
